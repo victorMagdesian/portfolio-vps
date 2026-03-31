@@ -99,7 +99,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/magdesian-victor/htdocs/victor.magdesian.com.br",
+    "outputFileTracingRoot": "/home/magdesian-victor",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -290,12 +290,12 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.mjs",
     "turbopack": {
-      "root": "/home/magdesian-victor/htdocs/victor.magdesian.com.br"
+      "root": "/home/magdesian-victor"
     },
     "distDirRoot": ".next"
   },
   "appDir": "/home/magdesian-victor/htdocs/victor.magdesian.com.br",
-  "relativeAppDir": "",
+  "relativeAppDir": "htdocs/victor.magdesian.com.br",
   "files": [
     ".next/routes-manifest.json",
     ".next/server/pages-manifest.json",
