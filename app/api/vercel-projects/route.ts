@@ -49,6 +49,7 @@ async function fetchAllProjects(token: string): Promise<VercelAPIProject[]> {
     if (!res.ok) break
 
     const data = await res.json()
+    console.log("Vercel API response:", JSON.stringify(data, null, 2))
     const page: VercelAPIProject[] = data.projects ?? []
     projects.push(...page)
 
