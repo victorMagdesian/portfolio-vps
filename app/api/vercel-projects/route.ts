@@ -76,12 +76,28 @@ export async function GET() {
         return productionReady || latestReady
       })
       .map((p) => {
-        const productionAlias = p.targets?.production?.alias?.[0]
-        const productionUrl = p.targets?.production?.url
+        const isValidAlias = (alias: string) =>
+          !alias.includes("victormagdesians-projects") && !alias.endsWith("-projects.vercel.app")
+
+        const pickBestAlias = (aliases: string[] | undefined, fallbackUrl: string | undefined) => {
+          const validAliases = (aliases ?? []).filter(isValidAlias)
+          // prefere domínio customizado (sem .vercel.app), depois o que contém o nome do projeto
+          return (
+            validAliases.find((a) => !a.endsWith(".vercel.app")) ??
+            validAliases.find((a) => a.includes(p.name)) ??
+            validAliases[0] ??
+            (fallbackUrl && isValidAlias(fallbackUrl) ? fallbackUrl : undefined)
+          )
+        }
+
+        const productionDomain = pickBestAlias(
+          p.targets?.production?.alias,
+          p.targets?.production?.url,
+        )
         const latestDeployment = p.latestDeployments?.find((d) => d.readyState === "READY")
-        const latestAlias = latestDeployment?.alias?.[0]
-        const latestUrl = latestDeployment?.url
-        const domain = productionAlias ?? productionUrl ?? latestAlias ?? latestUrl ?? null
+        const latestDomain = pickBestAlias(latestDeployment?.alias, latestDeployment?.url)
+
+        const domain = productionDomain ?? latestDomain ?? null
 
         return {
           id: p.id,
