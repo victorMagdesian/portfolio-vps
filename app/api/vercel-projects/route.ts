@@ -14,6 +14,7 @@ export interface VercelProject {
 interface VercelDeployment {
   readyState: string
   url: string
+  alias?: string[]
 }
 
 interface VercelAPIProject {
@@ -27,6 +28,7 @@ interface VercelAPIProject {
     production?: {
       url?: string
       readyState?: string
+      alias?: string[]
     }
   }
 }
@@ -74,9 +76,12 @@ export async function GET() {
         return productionReady || latestReady
       })
       .map((p) => {
+        const productionAlias = p.targets?.production?.alias?.[0]
         const productionUrl = p.targets?.production?.url
-        const latestUrl = p.latestDeployments?.find((d) => d.readyState === "READY")?.url
-        const url = productionUrl ?? latestUrl ?? null
+        const latestDeployment = p.latestDeployments?.find((d) => d.readyState === "READY")
+        const latestAlias = latestDeployment?.alias?.[0]
+        const latestUrl = latestDeployment?.url
+        const domain = productionAlias ?? productionUrl ?? latestAlias ?? latestUrl ?? null
 
         return {
           id: p.id,
@@ -84,7 +89,7 @@ export async function GET() {
           framework: p.framework ?? null,
           createdAt: p.createdAt,
           updatedAt: p.updatedAt,
-          deploymentUrl: url ? `https://${url}` : null,
+          deploymentUrl: domain ? `https://${domain}` : null,
         }
       })
       .sort((a, b) => a.createdAt - b.createdAt) // ordem crescente de criação
