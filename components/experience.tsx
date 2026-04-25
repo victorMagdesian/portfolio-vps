@@ -51,11 +51,11 @@ export function Experience() {
               <Card key={index} className="p-6 space-y-4">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-xl font-semibold text-balance">{exp.role}</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-balance">{exp.role}</h3>
                     <p className="text-primary">{exp.company}</p>
                     <p className="text-sm text-muted-foreground">{exp.type}</p>
                   </div>
-                  <div className="text-right text-sm">
+                  <div className="text-left sm:text-right text-sm shrink-0">
                     <p className="text-muted-foreground">{exp.period}</p>
                     <p className="text-muted-foreground">{exp.location}</p>
                   </div>

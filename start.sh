@@ -1,5 +1,5 @@
 #!/bin/bash
-export NVM_DIR="/home/magdesian-victor/.nvm"
+export NVM_DIR="/root/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-cd /home/magdesian-victor/htdocs/victor.magdesian.com.br
-exec npm start -- --port 3000
+cd /opt/portfolio-vps
+exec npm start -- --port 3001

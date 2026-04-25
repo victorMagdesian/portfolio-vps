@@ -39,3 +39,6 @@ next-env.d.ts
 # Misc
 .vercel
 .turbo
+.next/
+public/uploads/
+data/
